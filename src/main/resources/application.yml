@@ -1,0 +1,12 @@
+server:
+  port: 8080
+  servlet:
+    application-display-name: hazelcast-test-app
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+
+spring:
+  application:
+    name: hazelcast-test-app
