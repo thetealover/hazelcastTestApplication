@@ -1,15 +1,16 @@
 package org.example.hazelcast.controller;
 
 import static java.time.ZonedDateTime.now;
+import static java.util.Optional.ofNullable;
 import static org.springframework.http.HttpStatus.OK;
 
+import com.hazelcast.map.IMap;
 import java.time.ZonedDateTime;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,12 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class HttpRequestsController {
-
-  private int endpointCallCount = 0;
+  public static final String ENDPOINT_CALL_COUNT = "endpointCallCount";
+  private final IMap<String, Integer> hazelcastEndpointCallCountMap;
 
   @GetMapping("/")
-  public ResponseEntity<ResponseBody> handleRequest(@RequestParam("msg") @NonNull String msg) {
-    this.endpointCallCount++;
+  public ResponseEntity<ResponseBody> handleRequest(
+      @RequestParam(value = "msg", required = false) String msg) {
+    Integer endpointCallCount =
+        ofNullable(hazelcastEndpointCallCountMap.get(ENDPOINT_CALL_COUNT)).orElse(0);
+    endpointCallCount++;
+    hazelcastEndpointCallCountMap.put(ENDPOINT_CALL_COUNT, endpointCallCount);
+
     final ResponseBody responseBody =
         ResponseBody.builder()
             .endpointCallCount(endpointCallCount)
