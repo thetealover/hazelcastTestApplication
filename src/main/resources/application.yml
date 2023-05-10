@@ -10,3 +10,10 @@ server:
 spring:
   application:
     name: hazelcast-test-app
+
+hazelcast-test-application:
+  cache:
+    duration:
+      create: 10
+      access: 10
+      update: 10
