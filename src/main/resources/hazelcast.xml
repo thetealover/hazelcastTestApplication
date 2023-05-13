@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hazelcast xmlns="http://www.hazelcast.com/schema/config"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.hazelcast.com/schema/config
+           http://www.hazelcast.com/schema/config/hazelcast-config-5.3.xsd">
+    <cluster-name>local</cluster-name>
+    <network>
+        <port auto-increment="false" port-count="10">5701</port>
+        <join>
+            <multicast enabled="false"/>
+            <!--            <tcp-ip>-->
+            <!--                <interface>ip of the host</interface>-->
+            <!--                <member-list>-->
+            <!--                    <member>another hazelcast app ip</member>-->
+            <!--                    <member>another hazelcast app ip</member>-->
+            <!--                </member-list>-->
+            <!--            </tcp-ip>-->
+        </join>
+    </network>
+    <properties>
+        <property name="hazelcast.logging.type">slf4j</property>
+        <property name="hazelcast.heartbeat.failuredetector.type">deadline</property>
+        <property name="hazelcast.heartbeat.interval.seconds">5</property>
+        <property name="hazelcast.max.no.heartbeat.seconds">120</property>
+    </properties>
+</hazelcast>

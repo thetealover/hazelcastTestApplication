@@ -1,0 +1,25 @@
+hazelcast:
+  cluster-name: local
+  security:
+    enabled: false
+  jet:
+    enabled: false
+  management-center:
+    console-enabled: false
+  network:
+    port:
+      auto-increment: false
+      port-count: 10
+    join:
+      multicast:
+        enabled: false
+  properties:
+    hazelcast.logging.type: slf4j
+    hazelcast.heartbeat.failuredetector.type: deadline
+    hazelcast.heartbeat.interval.seconds: 5
+    hazelcast.max.no.heartbeat.seconds: 120
+#      tcp-ip:
+#        interface: 192.168.0.101
+#        member-list:
+#          - 192.168.0.10:5701
+#          - 192.168.3.10:5701
